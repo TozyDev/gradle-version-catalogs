@@ -13,10 +13,6 @@ kotlin {
     }
 }
 
-signing {
-    useInMemoryPgpKeys()
-}
-
 gradlePlugin {
     plugins {
         val versionCatalogs by registering {
