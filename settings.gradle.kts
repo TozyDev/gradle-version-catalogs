@@ -13,9 +13,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "gradle-version-catalogs"
 
-module("gradle-plugin") {
-    projectDir = file(it)
-}
+include("gradle-plugin")
 
 val catalogDirs = "catalogs"
 file(catalogDirs)
@@ -24,14 +22,10 @@ file(catalogDirs)
     .filter { it.isDirectory }
     .filterNot { it.name == catalogDirs }
     .forEach { file ->
-        module(file.name) {
+        val subprojectName = "${file.name}-catalog"
+        include(subprojectName)
+        project(":$subprojectName").apply {
             projectDir = file
             buildFileName = "../build.gradle.kts"
         }
     }
-
-fun module(name: String, block: ProjectDescriptor.(String) -> Unit = {}) {
-    val subprojectName = "${rootProject.name}-$name"
-    include(subprojectName)
-    project(":$subprojectName").block(name)
-}
