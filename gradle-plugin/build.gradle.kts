@@ -30,12 +30,20 @@ tasks {
     val writeCatalogs by registering(WriteProperties::class)
     afterEvaluate {
         writeCatalogs.configure {
-            destinationFile = temporaryDir.resolve("META-INF/version-catalogs.properties")
-            property("version", version)
+            destinationFile = temporaryDir.resolve("version-catalogs.properties")
+            property("version", this@afterEvaluate.version)
             val catalogSuffix = "-catalog"
             val catalogProjects = rootProject.subprojects.filter { it.name.endsWith(catalogSuffix) }
             val catalogs = catalogProjects.joinToString(",") { it.name.removeSuffix(catalogSuffix) }
             property("catalogs", catalogs)
+            property("group", this@afterEvaluate.group)
+        }
+    }
+
+    jar {
+        dependsOn(writeCatalogs)
+        metaInf {
+            from(writeCatalogs.flatMap { it.destinationFile })
         }
     }
 
