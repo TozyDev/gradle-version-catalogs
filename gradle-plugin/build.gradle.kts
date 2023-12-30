@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -14,11 +16,14 @@ kotlin {
 }
 
 gradlePlugin {
-    plugins {
-        val versionCatalogs by registering {
-            id = "io.github.tozydev.version-catalogs"
-            implementationClass = "io.github.tozydev.versioncatalogs.plugins.BindingPlugin"
-        }
+    website = prop("url")
+    vcsUrl = prop("url")
+    val versionCatalogsBinding by plugins.registering {
+        id = prop("pluginId").get()
+        implementationClass = prop("pluginImplementationClass").get()
+        displayName = prop("name").get()
+        description = prop("description").get()
+        tags = prop("tags").get().split(",").map { it.trim() }
     }
 }
 
@@ -51,3 +56,5 @@ tasks {
         enableStricterValidation = true
     }
 }
+
+fun Project.prop(key: String): Provider<String> = providers.gradleProperty(key)
