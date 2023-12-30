@@ -17,6 +17,15 @@ signing {
     useInMemoryPgpKeys()
 }
 
+gradlePlugin {
+    plugins {
+        val versionCatalogs by registering {
+            id = "io.github.tozydev.version-catalogs"
+            implementationClass = "io.github.tozydev.versioncatalogs.plugins.BindingPlugin"
+        }
+    }
+}
+
 tasks {
     withType<KotlinCompile> {
         kotlinOptions.jvmTarget = "1.8"

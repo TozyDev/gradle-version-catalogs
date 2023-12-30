@@ -17,12 +17,18 @@ module("gradle-plugin") {
     projectDir = file(it)
 }
 
-setOf("test1", "test2").forEach { name ->
-    module(name) {
-        projectDir = file("catalogs/$it")
-        buildFileName = "../build.gradle.kts"
+val catalogDirs = "catalogs"
+file(catalogDirs)
+    .walkTopDown()
+    .maxDepth(1)
+    .filter { it.isDirectory }
+    .filterNot { it.name == catalogDirs }
+    .forEach { file ->
+        module(file.name) {
+            projectDir = file
+            buildFileName = "../build.gradle.kts"
+        }
     }
-}
 
 fun module(name: String, block: ProjectDescriptor.(String) -> Unit = {}) {
     val subprojectName = "${rootProject.name}-$name"
