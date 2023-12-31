@@ -1,0 +1,3 @@
+import io.github.tozydev.versioncatalogs.buildlogic.tasks.GenerateVersionCatalogExtensions
+
+val generateVersionCatalogExtensions by tasks.registering(GenerateVersionCatalogExtensions::class)

@@ -6,6 +6,7 @@ plugins {
     `kotlin-dsl`
     signing
     alias(libs.plugins.com.gradle.plugin.publish)
+    id("version-catalog-extensions-generator")
 }
 
 val versionCatalogElements: Configuration by configurations.creating {
@@ -60,11 +61,19 @@ afterEvaluate {
     }
 
     tasks {
+        withType<KotlinCompile> {
+            dependsOn(generateVersionCatalogExtensions)
+        }
+
         jar {
             dependsOn(writeCatalogs)
             metaInf {
                 from(writeCatalogs.flatMap { it.destinationFile })
             }
+        }
+
+        named("sourcesJar") {
+            mustRunAfter(generateVersionCatalogExtensions)
         }
 
         writeCatalogs {
@@ -85,6 +94,15 @@ afterEvaluate {
                     artifact.file.copyTo(temporaryDir.resolve("$name.toml"), overwrite = true)
                 }
             }
+        }
+
+        generateVersionCatalogExtensions {
+            group = "version catalogs"
+            dependsOn(collectVersionCatalogs)
+
+            versionCatalogs = collectVersionCatalogs.map { it.temporaryDir }
+            packageName = "io.github.tozydev.versioncatalogs.dsl"
+            outputDir = generatedKotlinDir
         }
     }
 }
