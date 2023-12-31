@@ -1,3 +1,7 @@
+plugins {
+    id("build-logic")
+}
+
 subprojects {
     apply(plugin = "maven-publish")
     apply(plugin = "signing")
@@ -37,5 +41,3 @@ subprojects {
         useInMemoryPgpKeys(signingKeyId, signingKey?.replace("\\n", "\n"), signingPassword)
     }
 }
-
-fun Project.prop(key: String): Provider<String> = providers.gradleProperty(key)

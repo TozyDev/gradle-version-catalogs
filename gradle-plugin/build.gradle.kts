@@ -8,6 +8,19 @@ plugins {
     alias(libs.plugins.com.gradle.plugin.publish)
 }
 
+val versionCatalogElements: Configuration by configurations.creating {
+    isCanBeConsumed = false
+}
+
+val catalogSuffix = "-catalog"
+val catalogProjects = rootProject.subprojects.filter { it.name.endsWith(catalogSuffix) }
+
+dependencies {
+    for (catalogProject in catalogProjects) {
+        versionCatalogElements(project(catalogProject.path, configuration = "versionCatalogElements"))
+    }
+}
+
 kotlin {
     jvmToolchain {
         languageVersion = JavaLanguageVersion.of(8)
@@ -27,29 +40,12 @@ gradlePlugin {
     }
 }
 
+val writeCatalogs by tasks.registering(WriteProperties::class)
+val collectVersionCatalogs by tasks.registering
+
 tasks {
     withType<KotlinCompile> {
         kotlinOptions.jvmTarget = "1.8"
-    }
-
-    val writeCatalogs by registering(WriteProperties::class)
-    afterEvaluate {
-        writeCatalogs.configure {
-            destinationFile = temporaryDir.resolve("version-catalogs.properties")
-            property("version", this@afterEvaluate.version)
-            val catalogSuffix = "-catalog"
-            val catalogProjects = rootProject.subprojects.filter { it.name.endsWith(catalogSuffix) }
-            val catalogs = catalogProjects.joinToString(",") { it.name.removeSuffix(catalogSuffix) }
-            property("catalogs", catalogs)
-            property("group", this@afterEvaluate.group)
-        }
-    }
-
-    jar {
-        dependsOn(writeCatalogs)
-        metaInf {
-            from(writeCatalogs.flatMap { it.destinationFile })
-        }
     }
 
     validatePlugins {
@@ -57,4 +53,38 @@ tasks {
     }
 }
 
-fun Project.prop(key: String): Provider<String> = providers.gradleProperty(key)
+afterEvaluate {
+    val generatedKotlinDir = layout.buildDirectory.dir("generated/sources/kotlin")
+    kotlin.sourceSets.main {
+        kotlin.srcDirs(generatedKotlinDir)
+    }
+
+    tasks {
+        jar {
+            dependsOn(writeCatalogs)
+            metaInf {
+                from(writeCatalogs.flatMap { it.destinationFile })
+            }
+        }
+
+        writeCatalogs {
+            destinationFile = temporaryDir.resolve("version-catalogs.properties")
+            property("version", this@afterEvaluate.version)
+            val catalogs = catalogProjects.joinToString(",") { it.name.removeSuffix(catalogSuffix) }
+            property("catalogs", catalogs)
+            property("group", this@afterEvaluate.group)
+        }
+
+        collectVersionCatalogs {
+            group = "version catalogs"
+            inputs.files(versionCatalogElements)
+            doFirst {
+                for (artifact in versionCatalogElements.resolvedConfiguration.resolvedArtifacts) {
+                    val projectId = artifact.id.componentIdentifier as ProjectComponentIdentifier
+                    val name = projectId.projectName.removeSuffix(catalogSuffix)
+                    artifact.file.copyTo(temporaryDir.resolve("$name.toml"), overwrite = true)
+                }
+            }
+        }
+    }
+}
