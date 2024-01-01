@@ -1,0 +1,41 @@
+[versions]
+jackson = "2.16.1"
+
+[libraries]
+# Bill of Materials
+bom = { group = "com.fasterxml.jackson", name = "jackson-bom", version.ref = "jackson" }
+# Core
+core = { group = "com.fasterxml.jackson.core", name = "jackson-core", version.ref = "jackson" }
+annotations = { group = "com.fasterxml.jackson.core", name = "jackson-annotations", version.ref = "jackson" }
+databind = { group = "com.fasterxml.jackson.core", name = "jackson-databind", version.ref = "jackson" }
+# Data Formats
+dataformat-avro = { group = "com.fasterxml.jackson.dataformat", name = "jackson-dataformat-avro", version.ref = "jackson" }
+dataformat-cbor = { group = "com.fasterxml.jackson.dataformat", name = "jackson-dataformat-cbor", version.ref = "jackson" }
+dataformat-csv = { group = "com.fasterxml.jackson.dataformat", name = "jackson-dataformat-csv", version.ref = "jackson" }
+dataformat-ion = { group = "com.fasterxml.jackson.dataformat", name = "jackson-dataformat-ion", version.ref = "jackson" }
+dataformat-properties = { group = "com.fasterxml.jackson.dataformat", name = "jackson-dataformat-properties", version.ref = "jackson" }
+dataformat-protobuf = { group = "com.fasterxml.jackson.dataformat", name = "jackson-dataformat-protobuf", version.ref = "jackson" }
+dataformat-toml = { group = "com.fasterxml.jackson.dataformat", name = "jackson-dataformat-toml", version.ref = "jackson" } # Officially added in 2.13.0, beta in 2.12.3
+dataformat-xml = { group = "com.fasterxml.jackson.dataformat", name = "jackson-dataformat-xml", version.ref = "jackson" }
+dataformat-yaml = { group = "com.fasterxml.jackson.dataformat", name = "jackson-dataformat-yaml", version.ref = "jackson" }
+# Data Types
+datatype-jsr310 = { group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-jsr310", version.ref = "jackson" }
+datatype-jdk8 = { group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-jdk8", version.ref = "jackson" }
+datatype-joda = { group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-joda", version.ref = "jackson" }
+datatype-joda-money = { group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-joda-money", version.ref = "jackson" }
+# Modules, basic
+module-android-record = { group = "com.fasterxml.jackson.module", name = "jackson-module-android-record", version.ref = "jackson" } # Added in 2.16
+module-blackbird = { group = "com.fasterxml.jackson.module", name = "jackson-module-blackbird", version.ref = "jackson" } # Added in 2.16
+module-guice = { group = "com.fasterxml.jackson.module", name = "jackson-module-guice", version.ref = "jackson" }
+module-jaxb-annotations = { group = "com.fasterxml.jackson.module", name = "jackson-module-jaxb-annotations", version.ref = "jackson" }
+module-jsonSchema = { group = "com.fasterxml.jackson.module", name = "jackson-module-jsonSchema", version.ref = "jackson" }
+module-jsonSchema-jarkata = { group = "com.fasterxml.jackson.module", name = "jackson-module-jsonSchema-jarkata", version.ref = "jackson" } # 2.15+ Jakarta variant as well [jsonSchema#151]
+module-kotlin = { group = "com.fasterxml.jackson.module", name = "jackson-module-kotlin", version.ref = "jackson" }
+module-mrbean = { group = "com.fasterxml.jackson.module", name = "jackson-module-mrbean", version.ref = "jackson" }
+module-no-ctor-deser = { group = "com.fasterxml.jackson.module", name = "jackson-module-no-ctor-deser", version.ref = "jackson" } # Added in 2.13.0
+module-osgi = { group = "com.fasterxml.jackson.module", name = "jackson-module-osgi", version.ref = "jackson" }
+module-parameter-names = { group = "com.fasterxml.jackson.module", name = "jackson-module-parameter-names", version.ref = "jackson" } # Added in 2.12.0
+module-paranamer = { group = "com.fasterxml.jackson.module", name = "jackson-module-paranamer", version.ref = "jackson" }
+# Language Modules
+module-scala-213 = { group = "com.fasterxml.jackson.module", name = "jackson-module-scala_2.13", version.ref = "jackson" }
+module-scala-3 = { group = "com.fasterxml.jackson.module", name = "jackson-module-scala_3", version.ref = "jackson" } # Added in 2.13.0
