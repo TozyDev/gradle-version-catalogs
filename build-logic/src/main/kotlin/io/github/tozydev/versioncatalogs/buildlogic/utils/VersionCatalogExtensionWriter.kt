@@ -66,7 +66,7 @@ class VersionCatalogExtensionWriter(private val toml: Path, private val packageN
         private const val CONSTRUCTOR_BUILDER_PARAM = "builder"
         private const val GETTER_STMT = "return %S"
         private const val SETTER_PARAM = "value"
-        private const val SETTER_STMT = "version(%L, $SETTER_PARAM)"
+        private const val SETTER_STMT = "version(`%L`, $SETTER_PARAM)"
         private const val CONFIGURE_PARAM = "block"
         private const val CONFIGURE_STMT = "named(%S).configure { %T(this).$CONFIGURE_PARAM() }"
         private val VERSION_CATALOG_BUILDER = VersionCatalogBuilder::class.asTypeName()
