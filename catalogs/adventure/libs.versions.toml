@@ -1,0 +1,37 @@
+[versions]
+adventure = "4.15.0"
+adventure-platform-fabric = "5.10.1"
+adventure-platform = "4.3.2"
+enhancedlegacytext = "1.0.0"
+mcdiscordreserializer = "4.3.0"
+minedown = "1.7.2-SNAPSHOT"
+
+[libraries]
+bom = { group = "net.kyori", name = "adventure-bom", version.ref = "adventure" }
+annotation-processors = { group = "net.kyori", name = "adventure-annotation-processors", version.ref = "adventure" }
+extra-kotlin = { group = "net.kyori", name = "adventure-extra-kotlin", version.ref = "adventure" }
+api = { group = "net.kyori", name = "adventure-api", version.ref = "adventure" }
+key = { group = "net.kyori", name = "adventure-key", version.ref = "adventure" }
+nbt = { group = "net.kyori", name = "adventure-nbt", version.ref = "adventure" }
+serializer-configurate4 = { group = "net.kyori", name = "adventure-serializer-configurate4", version.ref = "adventure" }
+text-logger-slf4j = { group = "net.kyori", name = "adventure-text-logger-slf4j", version.ref = "adventure" }
+text-minimessage = { group = "net.kyori", name = "adventure-text-minimessage", version.ref = "adventure" }
+text-serializer-ansi = { group = "net.kyori", name = "adventure-text-serializer-ansi", version.ref = "adventure" }
+text-serializer-gson = { group = "net.kyori", name = "adventure-text-serializer-gson", version.ref = "adventure" }
+text-serializer-gson-legacy-impl = { group = "net.kyori", name = "adventure-text-serializer-gson-legacy-impl", version.ref = "adventure" }
+text-serializer-json = { group = "net.kyori", name = "adventure-text-serializer-json", version.ref = "adventure" }
+text-serializer-json-legacy-impl = { group = "net.kyori", name = "adventure-text-serializer-json-legacy-impl", version.ref = "adventure" }
+text-serializer-legacy = { group = "net.kyori", name = "adventure-text-serializer-legacy", version.ref = "adventure" }
+text-serializer-plain = { group = "net.kyori", name = "adventure-text-serializer-plain", version.ref = "adventure" }
+platform-fabric = { group = "net.kyori", name = "adventure-platform-fabric", version.ref = "adventure-platform-fabric" }
+platform-api = { group = "net.kyori", name = "adventure-platform-api", version.ref = "adventure-platform" }
+platform-facet = { group = "net.kyori", name = "adventure-platform-facet", version.ref = "adventure-platform" }
+platform-bukkit = { group = "net.kyori", name = "adventure-platform-bukkit", version.ref = "adventure-platform" }
+platform-bungeecord = { group = "net.kyori", name = "adventure-platform-bungeecord", version.ref = "adventure-platform" }
+platform-spongeapi = { group = "net.kyori", name = "adventure-platform-spongeapi", version.ref = "adventure-platform" }
+platform-viaversion = { group = "net.kyori", name = "adventure-platform-viaversion", version.ref = "adventure-platform" }
+text-serializer-bungeecord = { group = "net.kyori", name = "adventure-text-serializer-legacy-bungeecord", version.ref = "adventure-platform" }
+text-serializer-legacy-text3 = { group = "net.kyori", name = "adventure-text-serializer-legacy-text3", version.ref = "adventure-platform" }
+enhancedlegacytext = { group = "dev.vankka", name = "enhancedlegacytext", version.ref = "enhancedlegacytext" }
+mcdiscordreserializer = { group = "dev.vankka", name = "mcdiscordreserializer", version.ref = "mcdiscordreserializer" }
+minedown = { group = "de.themoep", name = "minedown-adventure", version.ref = "minedown" }
